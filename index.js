@@ -42,16 +42,18 @@ app.get("/:exercise/:age/:sex/:rawScore", (req, res) => {
   const { exercise, age, sex, rawScore } = req.params;
   let score = getScore(exercise, age, sex, rawScore);
 
+  res.header("Access-Control-Allow-Origin", "*");
   res.status(200).send({ score });
 });
 
 app.get("/ranges/:sex/:age", (req, res) => {
   const { sex, age } = req.params;
-
+  res.header("Access-Control-Allow-Origin", "*");
   res.status(200).send(getRanges(sex, age));
 });
 
 app.get("/", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
   res.status(200).send("it works");
 });
 
