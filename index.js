@@ -57,14 +57,10 @@ app.get("/:exercise/:age/:sex/", (req, res) => {
   let snip = sex + age;
   for (let i = 0; i < data[exercise].length; i++) {
     if (data[exercise][i][snip] && data[exercise][i][snip] !== "---")
-      arr.push({
-        [data[exercise][i][snip]]: getScore(
-          exercise,
-          age,
-          sex,
-          data[exercise][i][snip]
-        ),
-      });
+      arr.push([
+        data[exercise][i][snip],
+        getScore(exercise, age, sex, data[exercise][i][snip]),
+      ]);
   }
 
   res.header("Access-Control-Allow-Origin", "*");
