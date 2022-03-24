@@ -44,7 +44,7 @@ app.get("/:exercise/:age/:sex/", (req, res) => {
 
   let arr = [];
   let snip = sex + age;
-  for (let i = 0; i < data[exercises].length; i++) {
+  for (let i = 0; i < data[exercise].length; i++) {
     if (data[exercise][i][snip]) arr.push(data[exercise][i][snip]);
   }
 
