@@ -5,15 +5,15 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-function getScore(exercise, age, sex, rawScore) {
-  let snip = sex + age;
+// function getScore(exercise, age, sex, rawScore) {
+//   let snip = sex + age;
 
-  for (let i = 0; i < data[exercise].length; i++) {
-    if (data[exercise][i][snip] == rawScore) {
-      return data[exercise][i].points;
-    }
-  }
-}
+//   for (let i = 0; i < data[exercise].length; i++) {
+//     if (data[exercise][i][snip] == rawScore) {
+//       return data[exercise][i].points;
+//     }
+//   }
+// }
 
 function getRanges(sex, age) {
   let ranges = {
@@ -38,12 +38,23 @@ function getRanges(sex, age) {
   return ranges;
 }
 
-app.get("/:exercise/:age/:sex/:rawScore", (req, res) => {
-  const { exercise, age, sex, rawScore } = req.params;
-  let score = getScore(exercise, age, sex, rawScore);
+app.get("/:exercise/:age/:sex/", (req, res) => {
+  const { exercise, age, sex } = req.params;
+  // let score = getScore(exercise, age, sex, rawScore);
+
+  let arr = [];
+  let snip = sex + age;
+  for (let i = 0; i < data[exercises].length; i++) {
+    if (data[exercise][i][snip]) arr.push(data[exercise][i][snip]);
+  }
 
   res.header("Access-Control-Allow-Origin", "*");
-  res.status(200).send({ score });
+  res.status(200).send({
+    age,
+    sex,
+    exercise,
+    arr,
+  });
 });
 
 app.get("/ranges/:sex/:age", (req, res) => {
