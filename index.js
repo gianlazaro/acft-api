@@ -38,9 +38,20 @@ function getRanges(sex, age) {
   return ranges;
 }
 
+app.get("/", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.status(200).send("it works");
+});
+
+app.get("/ranges/:age/:sex/", (req, res) => {
+  const { age, sex } = req.params;
+  res.header("Access-Control-Allow-Origin", "*");
+  let val = getRanges(sex, age);
+  res.status(200).send(val);
+});
+
 app.get("/:exercise/:age/:sex/", (req, res) => {
   const { exercise, age, sex } = req.params;
-  // let score = getScore(exercise, age, sex, rawScore);
 
   let arr = [];
   let snip = sex + age;
@@ -64,16 +75,4 @@ app.get("/:exercise/:age/:sex/", (req, res) => {
     arr,
   });
 });
-
-app.get("/ranges/:sex/:age", (req, res) => {
-  const { sex, age } = req.params;
-  res.header("Access-Control-Allow-Origin", "*");
-  res.status(200).send(getRanges(sex, age));
-});
-
-app.get("/", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.status(200).send("it works");
-});
-
 app.listen(PORT, () => console.log(`ALIVE PORT ${PORT}`));
