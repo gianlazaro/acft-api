@@ -64,11 +64,6 @@ app.get("/:exercise/:age/:sex/", (req, res) => {
   }
 
   res.header("Access-Control-Allow-Origin", "*");
-  res.status(200).send({
-    age,
-    sex,
-    exercise,
-    arr,
-  });
+  res.status(200).send(arr);
 });
 app.listen(PORT, () => console.log(`ALIVE PORT ${PORT}`));
